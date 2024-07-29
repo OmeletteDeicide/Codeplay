@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Solution{% endblock %}
+
+{% block content %}
+<h2>Submit Solution for {{ exercise.title }}</h2>
+
+<form method="post" action="{% url 'submit_solution' exercise.id %}" id="solution-form">
+    {% csrf_token %}
+    <div>
+        {{ form.solution_code }}
+        <textarea id="code-editor" name="solution_code" data-mode="python"></textarea>
+    </div>
+    <div>
+        {{ form.language }}
+    </div>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ exercise.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ exercise.title }}</h2>
+<p>{{ exercise.description }}</p>
+
+<h3>Submit your solution</h3>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+{% if error_message %}
+    <div class="error-message">
+        <strong>Error:</strong> {{ error_message }}
+    </div>
+{% endif %}
+
+<h3>Previous Solutions</h3>
+<ul>
+    {% for solution in solutions %}
+    <li>
+        <pre>{{ solution.solution_code }}</pre>
+        <strong>Correct:</strong> {{ solution.is_correct }}
+        <br>
+        <strong>Submitted on:</strong> {{ solution.created_at }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
